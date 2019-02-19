@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Front-End Intelligence</title>
+
+    <link rel="old stylesheet" href="../../css/reveal.css">
+    <link rel="old stylesheet" href="../../css/theme/black.css">
+    <link rel="newer stylesheet" href="../../gwl_styles.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement('link');
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match(/print-pdf/gi) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
+document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <img src="figuras/logo.png" style="width: 40%" />
+          <h2>Front-End Intelligence</h2>
+          <h3>Prof. Guilherme Wachs</h3>
+        </section>
+
+        <section>
+          <h2>Jekyll - Parte 3</h2>
+          <img class="" src="figuras/jekyll.png" style="background: white" />
+        </section>
+
+        <section>
+          <h3>Conteúdos no Jekyll <br />(da aula passada…)</h3>
+          <ul>
+            <li class="fragment">Há diversas maneiras de se adicionar conteúdo a um site Jekyll.</li>
+            <ul>
+              <li class="fragment">Pela pasta <span class="green">_posts</span>: Podemos criar um arquivo na pasta obedecendo o padrão de nomeação. O jekyll irá adicionar um novo tópico ao site (aula passada).</li>
+              <li class="fragment">Uso de <span class="green">coleções</span>: veremos hoje!</li>
+              <li class="fragment">Novo arquivo em qualquer pasta: veremos mais tarde</li>
+              <li class="fragment">Uso de <span class="green">dados</span>: veremos mais tarde</li>
+            </ul>
+          </ul>
+        </section>
+        <section>
+          <h3>Adicionando uma coleção</h3>
+          5 passos simples:
+          <ul>
+            <li class="fragment">
+              Abra o arquivo<span class="green">_config.yml</span>
+            </li>
+            <li class="fragment">Adicione uma coleção assim:
+              <pre class="yaml"><code data-trim data-noescape>
+collections:
+  - nome_da_colecao
+              </code></pre>
+
+            </li>
+            <li class="fragment">Crie uma pasta chamada <span style="color:#008800">_</span><span class="green">nome_da_colecao</span>
+              <ul>
+                <li>(Atenção com o '_' antes do nome da coleção)</li>
+              </ul>
+            </li>
+            <li class="fragment">Adicione um arquivo contendo os dados de cada item da coleção
+              <ul>
+                <li>Esse processo é semelhante à adição de posts</li>
+              </ul>
+            </li>
+            <li class="fragment">Crie um arquivo na pasta raiz (html ou markdown) que imprime os itens da coleção</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Passos 1 e 2</h3>
+          <figure>
+            <pre class="yaml"><code data-trim data-noescape>
+  …
+  collections:
+    - produtos
+  …
+            </code></pre>
+
+            <figcaption>_config.yaml</figcaption>
+          </figure>
+        </section>
+        <section>
+          <h3>Passos 3 e 4</h3>
+          <figure>
+            <pre class="markdown"><code data-trim data-noescape>
+---
+layout: default
+---
+
+&lt;h2&gt;Projetos&lt;/h2&gt;
+
+&lt;div&gt;
+  Essa é uma página que usa uma coleção. A coleção foi definida no arquivo &lt;i&gt;_config.yml&lt;/i&gt;.&lt;br/&gt;
+  Cada arquivo dentro da pasta &lt;i&gt;_projetos&lt;/i&gt; é um item da coleção e pode ser acessado através do atributo &lt;i&gt;site.projetos&lt;/i&gt;.
+&lt;/div&gt;
+
+&lt;ul&gt;
+    {% for projeto in site.projetos %}
+    &lt;li&gt;
+        {{projeto.content}}
+    &lt;/li&gt;
+    {%endfor %}
+&lt;/ul&gt;
+            </code></pre>
+            <figcaption>arquivo <span class="green">produtos.md</span></figcaption>
+          </figure>
+        </section>
+        <section>
+          <h3>Passo 5</h3>
+          <pre class="markdown"><code data-trim data-noescape>
+---
+title: Primeiro Projeto
+layout: post
+---
+
+Esse é o projeto num. 1
+          </code></pre>
+        </section>
+        <section>
+          <h3>Dar build e serve:</h3>
+          <pre class="shell"><code data-trim data-noescape>
+$ jekyll build
+$ jekyll serve
+          </code></pre>
+          <div>Pronto!</div>
+        </section>
+        <section>
+          <h3>Alguns detalhes</h3>
+          <ul>
+            <li class="fragment">Atributos podem ser adicionados nas páginas de coleções (assim como posts)</li>
+            <li class="fragment">A linguagem <span class="green">Liquid</span> pode ser utilizada tanto para capturar valores de atributos como também o conteúdo do arquivo</li>
+            <li class="fragment">Condições podem ser utilizadas para regras de geração mais complexas</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Alguns detalhes</h3>
+          <ul>
+            <li class="fragment">Atributos da coleção também podem ser defininos no arquivo <span class="green">_config.yaml</span>
+              <pre class="markdown"><code data-trim data-noescape>
+collections:
+  projetos:
+    atributo: valor do atributo
+              </code></pre>
+            </li>
+            <li class="fragment">Também podemos habilitar a renderização de páginas:
+           <pre class="markdown"><code data-trim data-noescape>
+collections:
+  projetos:
+    output: true
+           </code></pre>
+            
+            
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <script src="../../lib/js/head.min.js"></script>
+    <script src="../../js/reveal.js"></script>
+
+    <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        history: true,
+        height: 900,
+        dependencies: [{
+          src: '../../plugin/markdown/marked.js'
+        },
+          {
+            src: '../../plugin/markdown/markdown.js'
+          },
+          {
+            src: '../../plugin/notes/notes.js',
+            async: true
+          },
+          {
+            src: '../../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+              hljs.initHighlightingOnLoad();
+            }
+          },
+          {
+            src: '../../lib/js/classList.js',
+            condition: function() {
+              return !document.body.classList;
+            }
+          },
+          {
+            src: '../../plugin/zoom-js/zoom.js',
+            async: true
+          },
+          {
+            src: '../../plugin/notes/notes.js',
+            async: true
+          },
+          {
+            src: '../../plugin/math/math.js',
+            async: true
+          }
+        ]
+      });
+    </script>
+  </body>
+
+</html>
