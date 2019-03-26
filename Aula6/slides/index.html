@@ -156,10 +156,30 @@ body {
           <ul>
             <li>Nesta aula, vamos aprender a construir um TODO list</li>
             <li>Vamos utilizar o <i>npm</i> para gerenciar as dependências</li>
-            <li>Todo o processo que iremos fazer aqui pode ser substituído pelo pacote <span class="blue">@vue/cli</span>. Com ela, temos uma interface em linha de comando que gera um projeto <span class="blue">vue.js</span></li>
+            <li>Há duas formas de criar um projeto VUE: 
+              <ul>
+                <li>Usando o <span class="blue">@vue/cli</span></li>
+                <li>Manualmente</li>
+              </ul>
+            </li>
           </ul>
         </section>
 
+        <section>
+          <h2>Criando um projeto vue com @vue-cli</h2>
+
+          <p>Para criar um projeto Vue, digite em um terminal:</p>
+          <pre class="shell"><code data-trim data-noescape>
+          mkdir pasta_de_trabalho
+          cd pasta_de_trabalho
+          npm init
+          npm install @vue/cli
+          npx vue create meu_site
+          cd meu_site
+          npm run serve
+          </code></pre>
+
+        </section>
         <section>
           <h2>Criando um projeto do zero</h2>
           <h3>WebPack</h3>
